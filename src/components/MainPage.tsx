@@ -1,36 +1,45 @@
-// src/components/MainPage.tsx
 import React from 'react';
 import OfferCard from './OfferCard';
 
-const MainPage = () => {
-  // Предполагаем, что данные карточек будут заменены на данные из API
-  const offers = [
-    { id: 1, title: "Beautiful & luxurious apartment at great location", price: 120, type: "Apartment", image: "img/apartment-01.jpg", isPremium: true, rating: 80 },
-    { id: 2, title: "Wood and stone place", price: 80, type: "Room", image: "img/room.jpg", isPremium: false, rating: 80 },
-    // Добавьте остальные предложения по аналогии
-  ];
+interface MainPageProps {
+  offersCount: number; // Добавляем это свойство для приема количества предложений
+  offers: Array<{
+    id: number;
+    title: string;
+    price: number;
+    type: string;
+    image: string;
+    isPremium: boolean;
+    rating: number;
+  }>;
+}
 
-  return (
-    <div className="page page--gray page--main">
-      {/* Шапка и другие части страницы */}
-      <main className="page__main page__main--index">
-        {/* Остальной контент */}
-        <div className="cities__places-list places__list tabs__content">
-          {offers.map((offer) => (
-            <OfferCard
-              key={offer.id}
-              title={offer.title}
-              price={offer.price}
-              type={offer.type}
-              image={offer.image}
-              isPremium={offer.isPremium}
-              rating={offer.rating}
-            />
-          ))}
-        </div>
-      </main>
-    </div>
-  );
-};
+const MainPage: React.FC<MainPageProps> = ({ offers, offersCount }) => (
+  <div className="page page--gray page--main">
+    {/* Шапка и другие части страницы */}
+    <main className="page__main page__main--index">
+      <div className="cities__places-container container">
+        <section className="cities__places places">
+          <h2 className="visually-hidden">Places</h2>
+          <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+          {/* Остальной контент */}
+          <div className="cities__places-list places__list tabs__content">
+            {offers.map((offer) => (
+              <OfferCard
+                key={offer.id}
+                title={offer.title}
+                price={offer.price}
+                type={offer.type}
+                image={offer.image}
+                isPremium={offer.isPremium}
+                rating={offer.rating}
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+);
 
 export default MainPage;
