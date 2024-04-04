@@ -17,7 +17,7 @@ export interface AppProps {
 }
 
 const App: FC<AppProps> = ({ offers, favouriteIds }) => {
-  const [user, setUser] = useState<User | null>({id: '1', username: 'Dima'});
+  const [user] = useState<User | null>({id: '1', username: 'Dima'});
 
   return (
     <BrowserRouter>
