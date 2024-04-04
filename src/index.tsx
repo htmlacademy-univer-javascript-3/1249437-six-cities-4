@@ -1,11 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-
-const offers = [
-  { id: 1, title: 'Beautiful & luxurious apartment at great location', price: 120, type: 'Apartment', image: 'img/apartment-01.jpg', isPremium: true, rating: 80 },
-  { id: 2, title: 'Wood and stone place', price: 80, type: 'Room', image: 'img/room.jpg', isPremium: false, rating: 80 },
-];
+import { OFFERS_DATA } from './mocks/offers';
+import { FAVOURITES_IDS } from './mocks/favourites';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,6 +10,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App offers={offers} />
+    <App offers={OFFERS_DATA} favouriteIds={FAVOURITES_IDS}/>
   </React.StrictMode>
 );
