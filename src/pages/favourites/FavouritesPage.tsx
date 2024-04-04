@@ -11,9 +11,21 @@ export interface FavouritesPageProps {
     offers: OfferData[];
 }
 
-export const FavoritesPage: FC<FavouritesPageProps> = ({ offers }) => {
+// Вспомогательная функция для группировки
+function groupBy<T>(array: T[], getKey: (item: T) => string): Record<string, T[]> {
+    return array.reduce((result, item) => {
+        const key = getKey(item);
+        if (!result[key]) {
+            result[key] = [];
+        }
+        result[key].push(item);
+        return result;
+    }, {} as Record<string, T[]>);
+}
 
-  const offersByCities = Object.groupBy(offers, (item: OfferData) => item.city);
+export const FavoritesPage: FC<FavouritesPageProps> = ({ offers }) => {
+    // Использование вспомогательной функции для группировки
+    const offersByCities = groupBy(offers, (item: OfferData) => item.city);
 
   return (
     <div className="page">
