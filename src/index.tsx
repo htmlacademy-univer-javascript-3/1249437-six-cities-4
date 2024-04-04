@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './App.1';
 import { OFFERS_DATA } from './mocks/offers';
 import { FAVOURITES_IDS } from './mocks/favourites';
 
