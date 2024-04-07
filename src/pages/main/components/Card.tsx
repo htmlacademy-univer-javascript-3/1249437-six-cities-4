@@ -5,17 +5,20 @@ import { Offer } from '../../../types/offer';
 export interface CardProps {
     offer: Offer;
     onMouseEnter: (id: string) => void;
+    isActive: boolean;
 }
 
 const Card: FC<CardProps> = ({
   offer,
-  onMouseEnter
+  onMouseEnter,
+  isActive
 }) => (
-  <article className="cities__card place-card"
+  <article
+    className={`cities__card place-card ${isActive ? 'active' : ''}`}
     onMouseEnter={() => onMouseEnter(offer.id)}
   >
     <div className="place-card__mark">
-      <span>{offer.isPremium === true ? 'Premium' : ''}</span>
+      <span>{offer.isPremium ? 'Premium' : ''}</span>
     </div>
     <div className="cities__image-wrapper place-card__image-wrapper">
       <a href="#">

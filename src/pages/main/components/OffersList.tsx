@@ -6,14 +6,18 @@ export interface OffersListProps {
     offers: Offer[];
 }
 
-const OffersList: FC<OffersListProps> = ({
-  offers
-}) => {
+const OffersList: FC<OffersListProps> = ({ offers }) => {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.map((card) => (
-        <Card key={card.id} offer={card} onMouseEnter={setActiveOfferId}/>
+      {offers.map((offer) => (
+        <Card
+          key={offer.id}
+          offer={offer}
+          onMouseEnter={() => setActiveOfferId(offer.id)}
+          isActive={offer.id === activeOfferId}
+        />
       ))}
     </div>
   );
