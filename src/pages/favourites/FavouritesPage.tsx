@@ -3,29 +3,17 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { FC } from 'react';
-import { OfferData } from '../main/components/Card';
 import { OffersForCity } from './components/OffersForCity';
 import { Link } from 'react-router-dom';
+import { Offer } from '../../types/offer';
 
 export interface FavouritesPageProps {
-    offers: OfferData[];
-}
-
-// Вспомогательная функция для группировки
-function groupBy<T>(array: T[], getKey: (item: T) => string): Record<string, T[]> {
-  return array.reduce((result, item) => {
-    const key = getKey(item);
-    if (!result[key]) {
-      result[key] = [];
-    }
-    result[key].push(item);
-    return result;
-  }, {} as Record<string, T[]>);
+    offers: Offer[];
 }
 
 export const FavoritesPage: FC<FavouritesPageProps> = ({ offers }) => {
-  // Использование вспомогательной функции для группировки
-  const offersByCities = groupBy(offers, (item: OfferData) => item.city);
+
+  const offersByCities = Object.groupBy(offers, (item: Offer) => item.city.name);
 
   return (
     <div className="page">
