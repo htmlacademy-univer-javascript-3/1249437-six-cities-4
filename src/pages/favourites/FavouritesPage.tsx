@@ -8,12 +8,22 @@ import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
 
 export interface FavouritesPageProps {
-    offers: Offer[];
+  offers: Offer[];
+}
+
+function groupBy<T, K extends keyof any>(array: T[], getKey: (item: T) => K): Record<K, T[]> {
+  return array.reduce((accumulator, item) => {
+    const key = getKey(item);
+    if (!accumulator[key]) {
+      accumulator[key] = [];
+    }
+    accumulator[key].push(item);
+    return accumulator;
+  }, {} as Record<K, T[]>);
 }
 
 export const FavoritesPage: FC<FavouritesPageProps> = ({ offers }) => {
-
-  const offersByCities = Object.groupBy(offers, (item: Offer) => item.city.name);
+  const offersByCities = groupBy(offers, (item: Offer) => item.city.name);
 
   return (
     <div className="page">
