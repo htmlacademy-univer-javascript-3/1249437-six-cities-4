@@ -11,8 +11,8 @@ export interface FavouritesPageProps {
   offers: Offer[];
 }
 
-function groupBy<T, K extends keyof any>(array: T[], getKey: (item: T) => K): Record<K, T[]> {
-  return array.reduce((accumulator, item) => {
+function groupBy<T, K extends string | number | symbol>(array: T[], getKey: (item: T) => K): Record<K, T[]> {
+  return array.reduce((accumulator: Record<K, T[]>, item: T) => {
     const key = getKey(item);
     if (!accumulator[key]) {
       accumulator[key] = [];
