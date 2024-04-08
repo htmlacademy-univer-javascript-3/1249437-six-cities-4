@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import { FC } from 'react';
 import { FavouritesOffer } from './FavouritesOffer';
-import { Offer } from '../../../types/offer.ts';
+import { Offer } from '../../../types/offer';
 
 export interface OffresForCityProps {
     offers: Offer[] | null;

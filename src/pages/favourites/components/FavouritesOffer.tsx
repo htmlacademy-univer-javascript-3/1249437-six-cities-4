@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { OFFER_URL } from '../../../links';
-import { Offer } from '../../../types/offer.ts';
+import { Offer } from '../../../types/offer';
 
 
 export interface FavouritesOfferProps {

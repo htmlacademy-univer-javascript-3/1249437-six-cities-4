@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Offer } from '../../types/offer.ts';
+import { Offer } from '../../types/offer';
 import Card from './OfferCard';
 
 export interface OffersListProps {
