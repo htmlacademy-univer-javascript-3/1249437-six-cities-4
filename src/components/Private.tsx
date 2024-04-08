@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Navigate } from 'react-router-dom';
-import { User } from '../types/User';
+import { User } from '../types/user';
 
 export interface PrivateProps {
     user: User | null;

@@ -6,7 +6,7 @@ import { LoginPage } from './pages/login/LoginPage';
 import { FavoritesPage } from './pages/favourites/FavouritesPage';
 import { OfferPage } from './pages/offer/OfferPage';
 import NotFoundPage from './pages/notFound/NotFoundPage';
-import { User } from './types/User';
+import { User } from './types/user';
 import Private from './components/Private';
 import { FAVOURITES_URL, LOGIN_URL, OFFER_URL } from './links';
 import { Offer } from './types/offer';

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Review } from '../../../types/Review';
+import { Review } from '../../../types/review';
 import { formatDateMonthYYYY, formatDateToYYYYMMDD } from '../../../utils/dateFormatting';
 
 export interface ReviewCardProps {

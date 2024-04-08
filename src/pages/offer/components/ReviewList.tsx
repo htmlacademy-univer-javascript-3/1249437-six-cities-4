@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Review } from '../../../types/Review';
+import { Review } from '../../../types/review';
 import { ReviewCard } from './ReviewCard';
 
 export interface ReviewListProps {
