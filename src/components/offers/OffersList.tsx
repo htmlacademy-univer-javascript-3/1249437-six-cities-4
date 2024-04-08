@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
-import { Offer } from '../../../types/offer';
-import Card from './Card';
+import { Offer } from '../../types/Offer';
+import Card from './OfferCard';
 
 export interface OffersListProps {
-    offers: Offer[];
+  offers: Offer[];
 }
 
 const OffersList: FC<OffersListProps> = ({ offers }) => {
@@ -16,7 +16,7 @@ const OffersList: FC<OffersListProps> = ({ offers }) => {
           key={offer.id}
           offer={offer}
           onMouseEnter={() => setActiveOfferId(offer.id)}
-          isActive={offer.id === activeOfferId}
+          active={offer.id === activeOfferId}
         />
       ))}
     </div>

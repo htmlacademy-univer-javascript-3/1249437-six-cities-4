@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { StarInput } from './StarInput';
+import { StarInput } from '../../../components/StarInput';
 
 const starValues = [5, 4, 3, 2, 1];
 
@@ -21,7 +21,6 @@ export const SendReviewForm: FC = () => {
       setSumitDisabled(true);
     }
   }, [data]);
-
 
   return (
     <form className="reviews__form form" action="#" method="post">
