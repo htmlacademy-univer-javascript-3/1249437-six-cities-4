@@ -3,7 +3,7 @@ import {Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../hooks/UseMap';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../icons';
-import { City } from '../types/offer';
+import { City } from '../types/offer.ts';
 
 export interface MapPoint {
     id: string;

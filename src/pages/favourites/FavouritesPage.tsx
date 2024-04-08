@@ -5,7 +5,7 @@
 import { FC } from 'react';
 import { OffersForCity } from './components/OffersForCity';
 import { Link } from 'react-router-dom';
-import { Offer } from '../../types/offer';
+import { Offer } from '../../types/offer.ts';
 
 export interface FavouritesPageProps {
   offers: Offer[];

@@ -3,7 +3,7 @@ import OffersList from '../../components/offers/OffersList';
 import { Link } from 'react-router-dom';
 import { FAVOURITES_URL } from '../../links';
 import { Map, MapPoint } from '../../components/Map';
-import { City, Offer } from '../../types/offer';
+import { City, Offer } from '../../types/offer.ts';
 import { offerToMapPoint } from '../../utils/offerToMapPoint';
 
 export interface MainPageProps {

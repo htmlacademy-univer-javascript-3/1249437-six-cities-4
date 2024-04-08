@@ -9,7 +9,7 @@ import NotFoundPage from './pages/notFound/NotFoundPage';
 import { User } from './types/user';
 import Private from './components/Private';
 import { FAVOURITES_URL, LOGIN_URL, OFFER_URL } from './links';
-import { Offer } from './types/offer';
+import { Offer } from './types/offer.ts';
 
 export interface AppProps {
     offers: Offer[];

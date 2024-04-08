@@ -1,4 +1,4 @@
-import { Review } from '../types/review';
+import { Review } from '../types/review.ts';
 
 
 export const REVIEWS_FOR_OFFERS: {offerId: string; reviews: Review[]}[] = [

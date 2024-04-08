@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Offer } from '../../types/offer';
+import { Offer } from '../../types/offer.ts';
 
 export interface CardProps {
   offer: Offer;
