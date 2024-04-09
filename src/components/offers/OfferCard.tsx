@@ -1,21 +1,21 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Offer } from '../../../types/offer';
+import { Offer } from '../../types/offer';
 
 export interface CardProps {
-    offer: Offer;
-    onMouseEnter: (id: string) => void;
-    isActive: boolean;
+  offer: Offer;
+  onMouseEnter?: (id: string) => void;
+  active?: boolean;
 }
 
 const Card: FC<CardProps> = ({
   offer,
   onMouseEnter,
-  isActive
+  active = false
 }) => (
   <article
-    className={`cities__card place-card ${isActive ? 'active' : ''}`}
-    onMouseEnter={() => onMouseEnter(offer.id)}
+    className={`cities__card place-card ${active ? 'active' : ''}`}
+    onMouseEnter={() => onMouseEnter ? onMouseEnter(offer.id) : undefined}
   >
     <div className="place-card__mark">
       <span>{offer.isPremium ? 'Premium' : ''}</span>
@@ -51,11 +51,7 @@ const Card: FC<CardProps> = ({
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span
-            style={{
-              width: `${offer.rating * 20}%`,
-            }}
-          />
+          <span style={{ width: `${offer.rating * 20}%` }} />
           <span className="visually-hidden">Rating</span>
         </div>
       </div>
