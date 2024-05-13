@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { OFFERS_DATA } from '../../mocks/mockOffers';
 import { SendReviewForm } from './components/SendReviewForm';
-import { FAVOURITES_URL } from '../../links';
+import { FAVOURITES_URL } from '../../const/links';
 import { REVIEWS_FOR_OFFERS } from '../../mocks/mockReviews';
 import { ReviewList } from './components/ReviewList';
 import { Map } from '../../components/Map';
