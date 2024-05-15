@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import MainPage from './pages/main/MainPage';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import { LoginPage } from './pages/login/LoginPage';
 import { FavoritesPage } from './pages/favourites/FavouritesPage';
 import { OfferPage } from './pages/offer/OfferPage';
@@ -9,13 +9,18 @@ import { User } from './types/user';
 import Private from './components/Private';
 import { FAVOURITES_URL, LOGIN_URL, OFFER_URL } from './const/links';
 import { Offer } from './types/offer';
+import { fetchOffersList } from './state/actions';
+import { useAppDispatch } from './state';
 
 export interface AppProps {
     offers: Offer[];
 }
 
 const App: FC<AppProps> = ({ offers }) => {
-  const [user] = useState<User | null>({id: '1', username: 'Dima'});
+  const [user] = useState<User | undefined>(undefined);
+
+  const dispatch = useAppDispatch();
+  dispatch(fetchOffersList());
 
   return (
     <BrowserRouter>
@@ -25,13 +30,16 @@ const App: FC<AppProps> = ({ offers }) => {
           <Route path={LOGIN_URL} element={<LoginPage/>} />
           <Route path={`${OFFER_URL}/:id`} element={<OfferPage />} />
           <Route path={FAVOURITES_URL} element={
-            <Private user={user}>
-              <FavoritesPage offers={offers.filter((offer) => offer.isFavorite)} />
+            <Private user={user} toUrl={LOGIN_URL}>
+              <FavoritesPage offers={
+                offers.filter((offer) => offer.isFavorite)
+              }
+              />
             </Private>
           }
-          />  { }
+          />
         </Route>
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="*" element={<NotFoundPage />}/>
       </Routes>
     </BrowserRouter>
   );
