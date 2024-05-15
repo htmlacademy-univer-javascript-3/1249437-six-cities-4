@@ -3,19 +3,21 @@ import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
 
 export interface CardProps {
-    offer: Offer;
-    onMouseEnter?: (id: string) => void;
-    onMouseLeave?: () => void;
+  offer: Offer;
+  onMouseEnter?: (id: string) => void;
+  onMouseLeave?: () => void;
+  active?: boolean;
 }
 
 const Card: FC<CardProps> = ({
   offer,
   onMouseEnter,
-  onMouseLeave
+  onMouseLeave,
+  active
 }) => (
-  <article className="cities__card place-card"
-    onMouseEnter={() => onMouseEnter !== undefined ? onMouseEnter(offer.id) : {}}
-    onMouseLeave={() => onMouseLeave !== undefined ? onMouseLeave() : {}}
+  <article className={`cities__card place-card ${active ? 'active' : ''}`}
+    onMouseEnter={() => onMouseEnter ? onMouseEnter(offer.id) : undefined}
+    onMouseLeave={() => onMouseLeave ? onMouseLeave() : undefined}
   >
     <div className="place-card__mark">
       <span>{offer.isPremium === true ? 'Premium' : ''}</span>
