@@ -12,9 +12,20 @@ import { selectOffersList } from '../../state/selectors';
 export interface FavouritesPageProps {
 }
 
+function groupBy<T, K extends string | number | symbol>(array: T[], getKey: (item: T) => K): Record<K, T[]> {
+  return array.reduce((accumulator: Record<K, T[]>, item: T) => {
+    const key = getKey(item);
+    if (!accumulator[key]) {
+      accumulator[key] = [];
+    }
+    accumulator[key].push(item);
+    return accumulator;
+  }, {} as Record<K, T[]>);
+}
+
 export const FavoritesPage: FC<FavouritesPageProps> = () => {
   const offers = useSelector(selectOffersList);
-  const offersByCities = Object.groupBy(offers ? offers : [], (item: Offer) => item.city.name);
+  const offersByCities = groupBy(offers ? offers : [], (item: Offer) => item.city.name);
 
   return (
     <div className="page">
