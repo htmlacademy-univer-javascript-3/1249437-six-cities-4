@@ -1,4 +1,7 @@
 export interface User {
-    id: string;
-    username: string;
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+    email: string;
+    token: string;
 }
