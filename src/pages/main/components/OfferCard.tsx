@@ -1,29 +1,29 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Offer } from '../../types/offer';
+import { Offer } from '../../../types/offer';
+import FavouriteButton from '../../../components/FavouriteButton';
 
 export interface CardProps {
-  offer: Offer;
-  onMouseEnter?: (id: string) => void;
-  onMouseLeave?: () => void;
-  active?: boolean;
+    offer: Offer;
+    onMouseEnter?: (id: string) => void;
+    onMouseLeave?: () => void;
 }
+
 
 const Card: FC<CardProps> = ({
   offer,
   onMouseEnter,
-  onMouseLeave,
-  active
+  onMouseLeave
 }) => (
-  <article className={`cities__card place-card ${active ? 'active' : ''}`}
-    onMouseEnter={() => onMouseEnter ? onMouseEnter(offer.id) : undefined}
-    onMouseLeave={() => onMouseLeave ? onMouseLeave() : undefined}
+  <article className="cities__card place-card"
+    onMouseEnter={() => onMouseEnter !== undefined ? onMouseEnter(offer.id) : {}}
+    onMouseLeave={() => onMouseLeave !== undefined ? onMouseLeave() : {}}
   >
-    <div className="place-card__mark">
-      <span>{offer.isPremium === true ? 'Premium' : ''}</span>
+    <div className="place-card__mark" hidden={!offer.isPremium}>
+      <span>Premium</span>
     </div>
     <div className="cities__image-wrapper place-card__image-wrapper">
-      <a href="#">
+      <Link to={`/offer/${offer.id}`}>
         <img
           className="place-card__image"
           src={offer.previewImage}
@@ -31,7 +31,7 @@ const Card: FC<CardProps> = ({
           height="200"
           alt="Place image"
         />
-      </a>
+      </Link>
     </div>
     <div className="place-card__info">
       <div className="place-card__price-wrapper">
@@ -39,23 +39,13 @@ const Card: FC<CardProps> = ({
           <b className="place-card__price-value">&euro;{offer.price}</b>
           <span className="place-card__price-text">&#47;&nbsp;night</span>
         </div>
-        <button
-          className="place-card__bookmark-button place-card__bookmark-button--active button"
-          type="button"
-        >
-          <svg className="place-card__bookmark-icon" width="18" height="19">
-            <use xlinkHref="#icon-bookmark"></use>
-          </svg>
-          <span className="visually-hidden">
-            To bookmarks
-          </span>
-        </button>
+        <FavouriteButton isFavourite={offer.isFavorite} id={offer.id}/>
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
           <span
             style={{
-              width: `${offer.rating * 20}%`,
+              width: `${Math.round(offer.rating) * 20}%`,
             }}
           />
           <span className="visually-hidden">Rating</span>
@@ -66,7 +56,6 @@ const Card: FC<CardProps> = ({
       </h2>
       <p className="place-card__type">{offer.type}</p>
     </div>
-  </article>
-);
+  </article>);
 
 export default Card;

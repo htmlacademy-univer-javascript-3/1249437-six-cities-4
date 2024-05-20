@@ -1,29 +1,58 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, FormEvent, useEffect, useState } from 'react';
 import { StarInput } from '../../../components/StarInput';
+import { axiosInstance } from '../../../api';
+import { SEND_FORM } from '../../../const/apiConsts';
 
 const starValues = [5, 4, 3, 2, 1];
+const MIN_REVIEW_SYMBOLS = 50;
+const MAX_REVIEW_SYMBOLS = 300;
 
 interface FormData {
-  rating: number;
-  review: string;
+  rating: number | undefined;
+  comment: string;
 }
 
-export const SendReviewForm: FC = () => {
+export interface CommentFormProps {
+  offerId: string;
+  afterFormSend: () => void;
+}
 
-  const [data, setData] = useState<FormData | null>(null);
+export const CommentForm: FC<CommentFormProps> = ({ offerId, afterFormSend }) => {
+
+  const [data, setData] = useState<FormData>({rating: undefined, comment: ''});
   const [submitDisabled, setSumitDisabled] = useState(true);
-  const MIN_REVIEW_SYMBOLS = 50;
 
   useEffect(() => {
-    if(data !== null && data.rating !== null && data.review?.length >= MIN_REVIEW_SYMBOLS) {
+    if(data.rating !== undefined && data.comment !== undefined
+      && (data.comment.length >= MIN_REVIEW_SYMBOLS && data.comment.length <= MAX_REVIEW_SYMBOLS)) {
       setSumitDisabled(false);
     } else {
       setSumitDisabled(true);
     }
   }, [data]);
 
+  const onSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    const sendData = async () => {
+      try {
+        setSumitDisabled(true);
+        await axiosInstance.post<Comment>(`${SEND_FORM}/${offerId}`, data);
+        setData({rating: 0, comment: ''});
+        afterFormSend();
+      } catch (err) {
+        // eslint-disable-next-line no-alert
+        alert('Something went wrong, your comment wasn\'t saved');
+      } finally {
+        setSumitDisabled(false);
+      }
+    };
+    sendData();
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form"
+      onSubmit={onSubmit}
+    >
       <label className="reviews__label form__label" htmlFor="review">
             Your review
       </label>
@@ -33,11 +62,13 @@ export const SendReviewForm: FC = () => {
             starValue={star}
             onChange={() => setData({...data, rating: star} as FormData)}
             key={star}
+            checkedValue={data.rating}
           />
         ))}
       </div>
       <textarea
-        onChange={(event) => setData({...data, review: event.target.value} as FormData)}
+        value={data.comment}
+        onChange={(event) => setData({...data, comment: event.target.value} as FormData)}
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
