@@ -16,7 +16,7 @@ const Private: FC<PrivateProps> = ({ toUrl, children }) => {
     return <Navigate to={toUrl} />;
   }
 
-  return <>{children}</>;
+  return children;
 };
 
 export default Private;
