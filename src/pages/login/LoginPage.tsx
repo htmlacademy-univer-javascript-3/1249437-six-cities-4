@@ -29,7 +29,7 @@ export const LoginPage: FC = () => {
     event.preventDefault();
     if(!isValidPassword(formData.password)) {
       // eslint-disable-next-line no-alert
-      alert('Password should have at least 1 digit and 1 character');
+      alert('The password must include at least one digit and one letter.');
       return;
     }
     setFormDisabled(true);
@@ -38,7 +38,7 @@ export const LoginPage: FC = () => {
         navigate(MAIN_URL);
       } else {
         // eslint-disable-next-line no-alert
-        alert('You wasn\'t logged in. Try again!');
+        alert('You weren\'t logged in. Please try again!');
       }
       setFormDisabled(false);
     });

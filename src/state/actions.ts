@@ -7,14 +7,12 @@ import { User } from '../types/user';
 import { setAuthToken } from '../api';
 import { FavouriteStatus } from '../types/favouriteStatus';
 
-// Synchronous Actions
 export const changeCity = createAction<City>('offers/changeCity');
 export const changeOffersList = createAction<Offer[] | undefined>('offers/changeOffersList');
 export const changeActiveOfferId = createAction<string | undefined>('offers/changeActiveOfferId');
 export const changeAuthStatus = createAction<AuthStatus>('auth/changeAuthStatus');
 export const changeUser = createAction<User | undefined>('auth/changeUser');
 
-// Asynchronous Actions
 export const fetchOffersList = createAsyncThunk<void, undefined, ThunkConfig>(
   'offers/fetchOffersList',
   async (_, { extra, dispatch }) => {

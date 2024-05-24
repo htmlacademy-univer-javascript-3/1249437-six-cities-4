@@ -1,9 +1,9 @@
 import { FC } from 'react';
 
 export interface StarInputProps {
-    onChange: (num: number) => void;
-    starValue: number;
-    checked: boolean;
+  onChange: (num: number) => void;
+  starValue: number;
+  checked: boolean;
 }
 
 const StarInput: FC<StarInputProps> = ({ onChange, starValue, checked }) => (
