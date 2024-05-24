@@ -1,5 +1,5 @@
 import { FC, FormEvent, useEffect, useState } from 'react';
-import { StarInput } from '../../../components/StarInput';
+import StarInput from '../../../components/StarInput';
 import { axiosInstance } from '../../../api';
 import { SEND_FORM } from '../../../const/apiConsts';
 
@@ -17,7 +17,7 @@ export interface CommentFormProps {
   afterFormSend: () => void;
 }
 
-export const CommentForm: FC<CommentFormProps> = ({ offerId, afterFormSend }) => {
+const CommentForm: FC<CommentFormProps> = ({ offerId, afterFormSend }) => {
 
   const [data, setData] = useState<FormData>({rating: undefined, comment: ''});
   const [submitDisabled, setSumitDisabled] = useState(true);
@@ -37,7 +37,7 @@ export const CommentForm: FC<CommentFormProps> = ({ offerId, afterFormSend }) =>
       try {
         setSumitDisabled(true);
         await axiosInstance.post<Comment>(`${SEND_FORM}/${offerId}`, data);
-        setData({rating: 0, comment: ''});
+        setData({rating: undefined, comment: ''});
         afterFormSend();
       } catch (err) {
         // eslint-disable-next-line no-alert
@@ -50,11 +50,9 @@ export const CommentForm: FC<CommentFormProps> = ({ offerId, afterFormSend }) =>
   };
 
   return (
-    <form className="reviews__form form"
-      onSubmit={onSubmit}
-    >
+    <form className="reviews__form form" onSubmit={onSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
-            Your review
+        Your review
       </label>
       <div className="reviews__rating-form form__rating">
         {starValues.map((star) => (
@@ -62,7 +60,7 @@ export const CommentForm: FC<CommentFormProps> = ({ offerId, afterFormSend }) =>
             starValue={star}
             onChange={() => setData({...data, rating: star} as FormData)}
             key={star}
-            checkedValue={data.rating}
+            checked={data.rating === star}
           />
         ))}
       </div>
@@ -76,9 +74,9 @@ export const CommentForm: FC<CommentFormProps> = ({ offerId, afterFormSend }) =>
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-                To submit review please make sure to set{' '}
+          To submit review please make sure to set{' '}
           <span className="reviews__star">rating</span> and describe
-                your stay with at least{' '}
+          your stay with at least{' '}
           <b className="reviews__text-amount">{MIN_REVIEW_SYMBOLS} characters</b>.
         </p>
         <button
@@ -86,9 +84,11 @@ export const CommentForm: FC<CommentFormProps> = ({ offerId, afterFormSend }) =>
           type="submit"
           disabled={submitDisabled}
         >
-                Submit
+          Submit
         </button>
       </div>
     </form>
   );
 };
+
+export default CommentForm;

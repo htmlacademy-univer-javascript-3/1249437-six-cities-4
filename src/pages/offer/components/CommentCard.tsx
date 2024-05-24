@@ -6,7 +6,7 @@ export interface ReviewCardProps {
   review: Comment;
 }
 
-export const CommentCard: FC<ReviewCardProps> = ({ review }) => (
+const CommentCard: FC<ReviewCardProps> = ({ review }) => (
   <li className="reviews__item">
     <div className="reviews__user user">
       <div className="reviews__avatar-wrapper user__avatar-wrapper">
@@ -37,3 +37,5 @@ export const CommentCard: FC<ReviewCardProps> = ({ review }) => (
     </div>
   </li>
 );
+
+export default CommentCard;

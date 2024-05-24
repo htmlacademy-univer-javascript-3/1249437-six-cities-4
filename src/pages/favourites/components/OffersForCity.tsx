@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import { FC } from 'react';
-import { FavouritesOffer } from './FavouritesOffer';
+import FavouritesOffer from './FavouritesOfferContainer';
 import { Offer } from '../../../types/offer';
 
 export interface OffresForCityProps {
@@ -10,7 +10,7 @@ export interface OffresForCityProps {
 
 export const OffersForCity: FC<OffresForCityProps> = ({ offers, city }) => {
 
-  if(!offers) {
+  if (!offers) {
     return (
       <></>
     );
@@ -21,13 +21,13 @@ export const OffersForCity: FC<OffresForCityProps> = ({ offers, city }) => {
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
           <a className="locations__item-link" href="#">
-            <span>{ city }</span>
+            <span>{city}</span>
           </a>
         </div>
       </div>
       <div className="favorites__places">
         {offers.map((offer) => (
-          <FavouritesOffer offer={offer} key={offer.id}/>
+          <FavouritesOffer offer={offer} key={offer.id} />
         ))}
       </div>
     </li>
