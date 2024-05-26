@@ -15,7 +15,7 @@ const SortingSelect: FC<SortingSelectProps> = ({ onSortSelected }) => {
 
   return (
     <form className="places__sorting" action="#" method="get">
-      <span className="places__sorting-caption">Сортировать по </span>
+      <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex={0} onClick={() => setOpenForm(!openForm)}>
         {sortType}
         <svg className="places__sorting-arrow" width="7" height="4">

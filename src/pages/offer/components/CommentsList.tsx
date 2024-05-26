@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Comment } from '../../../types/comment';
-import { CommentCard } from './CommentCard';
+import CommentCard from './CommentCard';
 import { compareDates } from '../../../utils/dateFormatting';
 
 export interface CommentsListProps {
@@ -9,9 +9,9 @@ export interface CommentsListProps {
 
 const MAX_COMMENTS_NUMBER = 10;
 
-export const CommentsList: FC<CommentsListProps> = ({reviews}) => {
-  if(reviews === undefined || reviews.length === 0) {
-    return <h2 className="reviews__title"> There is no comments yet. <br></br> Leave comment first!</h2>;
+const CommentsList: FC<CommentsListProps> = ({ reviews }) => {
+  if (reviews === undefined || reviews.length === 0) {
+    return <h2 className="reviews__title">There are no comments yet. <br /> Leave a comment first!</h2>;
   }
 
   return (
@@ -28,3 +28,5 @@ export const CommentsList: FC<CommentsListProps> = ({reviews}) => {
     </>
   );
 };
+
+export default CommentsList;
