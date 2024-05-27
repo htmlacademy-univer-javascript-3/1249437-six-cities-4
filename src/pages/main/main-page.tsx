@@ -1,6 +1,6 @@
 import { FC, useCallback, useMemo, useState } from 'react';
 import OffersList from './components/offers-list';
-import { Map, MapPoint } from '../../components/map';
+import { Map, MapPoint } from '../../components/map-component';
 import { City, Offer } from '../../types/offer';
 import { offerToMapPoint } from '../../utils/offer-to-map-point';
 import CitiesTabs from './components/cities-tab';
@@ -9,8 +9,8 @@ import { useSelector } from 'react-redux';
 import { selectActiveOfferId, selectCurrentCity, selectOffersList } from '../../state/selectors';
 import SortingSelect from './components/sorting-select';
 import { SortType } from './components/sort-types';
-import Spinner from '../../components/spinner';
-import Header from '../../components/header';
+import Spinner from '../../components/spinner-component';
+import Header from '../../components/header-сomponent';
 
 const sortFunctions: Record<SortType, (a: Offer, b: Offer) => number> = {
   [SortType.LOW_PRICE_FIRST]: (a, b) => a.price - b.price,
@@ -19,7 +19,7 @@ const sortFunctions: Record<SortType, (a: Offer, b: Offer) => number> = {
   [SortType.POPULAR]: () => 1
 };
 
-const sort = (offers: Offer[], sortType: SortType): Offer[] => {
+const sort = (offers: Offer[], sortType: SortType) => {
   if (sortType === SortType.POPULAR) {
     return offers;
   }
@@ -27,27 +27,26 @@ const sort = (offers: Offer[], sortType: SortType): Offer[] => {
 };
 
 const MainPage: FC = () => {
+
   const [sortType, setSortType] = useState<SortType>(SortType.POPULAR);
   const city: City = useSelector(selectCurrentCity);
   const allOffers = useSelector(selectOffersList);
   const activeOfferId = useSelector(selectActiveOfferId);
-
-  const offers: Offer[] | undefined = useMemo(
+  const offers = useMemo(
     () => allOffers ? allOffers.filter((it) => it.city.name === city.name) : undefined,
     [allOffers, city]
   );
-
-  const sortedOffers: Offer[] = useMemo(
+  const sortedOffers = useMemo(
     () => offers ? sort(offers, sortType) : [],
     [offers, sortType]
   );
 
   const points: MapPoint[] = useMemo(
-    () => offers ? offers.map((offer: Offer): MapPoint => offerToMapPoint(offer)) : [],
+    () => offers ? offers.map((offer: Offer) => offerToMapPoint(offer)) : [],
     [offers]
   );
 
-  const handleSortSelected = useCallback((type: SortType): void => setSortType(type), [setSortType]);
+  const handleSortSelected = useCallback((type: SortType) => setSortType(type), [setSortType]);
 
   return (
     <div className="page page--gray page--main">
@@ -87,6 +86,7 @@ const MainPage: FC = () => {
                 <div className="cities__right-section" style={{backgroundImage: 'url("/src/const/img/no-places@2x.png")', backgroundSize: 'auto 100%', backgroundPosition: 'right center'}}></div>
               </div>
           }
+
         </div>
       </main>
     </div>
