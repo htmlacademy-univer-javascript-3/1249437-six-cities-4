@@ -31,12 +31,12 @@ const MainPage: FC = () => {
   const city: City = useSelector(selectCurrentCity);
   const allOffers = useSelector(selectOffersList);
   const activeOfferId = useSelector(selectActiveOfferId);
-  
+
   const offers: Offer[] | undefined = useMemo(
     () => allOffers ? allOffers.filter((it) => it.city.name === city.name) : undefined,
     [allOffers, city]
   );
-  
+
   const sortedOffers: Offer[] = useMemo(
     () => offers ? sort(offers, sortType) : [],
     [offers, sortType]
