@@ -19,7 +19,7 @@ const sortFunctions: Record<SortType, (a: Offer, b: Offer) => number> = {
   [SortType.POPULAR]: () => 1
 };
 
-const sort = (offers: Offer[], sortType: SortType) => {
+const sort = (offers: Offer[], sortType: SortType): Offer[] => {
   if (sortType === SortType.POPULAR) {
     return offers;
   }
@@ -32,11 +32,13 @@ const MainPage: FC = () => {
   const city: City = useSelector(selectCurrentCity);
   const allOffers = useSelector(selectOffersList);
   const activeOfferId = useSelector(selectActiveOfferId);
-  const offers = useMemo(
+  
+  const offers: Offer[] | undefined = useMemo(
     () => allOffers ? allOffers.filter((it) => it.city.name === city.name) : undefined,
     [allOffers, city]
   );
-  const sortedOffers = useMemo(
+  
+  const sortedOffers: Offer[] = useMemo(
     () => offers ? sort(offers, sortType) : [],
     [offers, sortType]
   );
@@ -46,7 +48,7 @@ const MainPage: FC = () => {
     [offers]
   );
 
-  const handleSortSelected = useCallback((type: SortType) => setSortType(type), [setSortType]);
+  const handleSortSelected = useCallback((type: SortType): void => setSortType(type), [setSortType]);
 
   return (
     <div className="page page--gray page--main">
