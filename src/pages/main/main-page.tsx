@@ -27,7 +27,6 @@ const sort = (offers: Offer[], sortType: SortType): Offer[] => {
 };
 
 const MainPage: FC = () => {
-
   const [sortType, setSortType] = useState<SortType>(SortType.POPULAR);
   const city: City = useSelector(selectCurrentCity);
   const allOffers = useSelector(selectOffersList);
@@ -44,7 +43,7 @@ const MainPage: FC = () => {
   );
 
   const points: MapPoint[] = useMemo(
-    () => offers ? offers.map((offer: Offer) => offerToMapPoint(offer)) : [],
+    () => offers ? offers.map((offer: Offer): MapPoint => offerToMapPoint(offer)) : [],
     [offers]
   );
 
@@ -88,7 +87,6 @@ const MainPage: FC = () => {
                 <div className="cities__right-section" style={{backgroundImage: 'url("/src/const/img/no-places@2x.png")', backgroundSize: 'auto 100%', backgroundPosition: 'right center'}}></div>
               </div>
           }
-
         </div>
       </main>
     </div>
