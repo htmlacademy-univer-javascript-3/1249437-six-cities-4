@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import FavouritesOffer from './favourites-offer';
-import { Offer } from '../../../types/offer';
+import { Offer } from '../../../../types/offer';
 
 export interface OffresForCityProps {
     offers: Offer[] | null;

@@ -1,6 +1,6 @@
 import React from 'react';
 import NearbyOfferCard from './nearby-offer-card';
-import { Offer } from '../../../types/offer';
+import { Offer } from '../../../../types/offer';
 
 const memoNearbyOfferCard = React.memo(
   NearbyOfferCard,

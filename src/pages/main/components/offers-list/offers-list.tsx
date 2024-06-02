@@ -1,9 +1,9 @@
 import { FC, useCallback, useEffect, useState } from 'react';
-import { Offer } from '../../../types/offer';
+import { Offer } from '../../../../types/offer';
 import Card from './offer-card';
 import { useDispatch } from 'react-redux';
 import React from 'react';
-import { changeActiveOfferId } from '../../../state/offer/offer-actions';
+import { changeActiveOfferId } from '../../../../state/offer/offer-actions';
 
 export interface OffersListProps {
     offers: Offer[];

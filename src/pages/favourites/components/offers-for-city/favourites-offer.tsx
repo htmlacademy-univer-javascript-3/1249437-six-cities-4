@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { OFFER_URL } from '../../../const/links';
-import { Offer } from '../../../types/offer';
-import FavouriteButton from '../../../components/favourite-button';
+import { OFFER_URL } from '../../../../const/links';
+import { Offer } from '../../../../types/offer';
+import FavouriteButton from '../../../../components/favourite-button/favourite-button';
 
 export interface FavouritesOfferProps {
     offer: Offer;
