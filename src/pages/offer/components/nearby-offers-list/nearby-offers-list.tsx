@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Offer } from '../../../types/offer';
+import { Offer } from '../../../../types/offer';
 import NearbyOfferCard from './nearby-offer-card';
 
 export interface NearbyOffersListProps {

@@ -1,16 +1,16 @@
 import { FC, useCallback, useMemo, useState } from 'react';
-import OffersList from './components/offers-list';
-import { Map, MapPoint } from '../../components/map-component';
+import OffersList from './components/offers-list/offers-list';
+import { Map, MapPoint } from '../../components/map/map-component';
 import { City, Offer } from '../../types/offer';
 import { offerToMapPoint } from '../../utils/offer-to-map-point';
-import CitiesTabs from './components/cities-tab';
+import CitiesTabs from './components/cities-tab/cities-tab';
 import { CITIES_DATA } from '../../const/cities';
 import { useSelector } from 'react-redux';
 import { selectActiveOfferId, selectCurrentCity, selectOffersList } from '../../state/selectors';
-import SortingSelect from './components/sorting-select';
-import { SortType } from './components/sort-types';
-import Spinner from '../../components/spinner-component';
-import Header from '../../components/header-сomponent';
+import SortingSelect from './components/sorting-select/sorting-select';
+import { SortType } from './components/sorting-select/sort-types';
+import Spinner from '../../components/spinner/spinner-component';
+import Header from '../../components/header/header-сomponent';
 
 const sortFunctions: Record<SortType, (a: Offer, b: Offer) => number> = {
   [SortType.LOW_PRICE_FIRST]: (a, b) => a.price - b.price,
