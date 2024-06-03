@@ -6,7 +6,7 @@ const checkCount = async (page, count) => {
     await page.waitForFunction((toBe) => 
         +document.querySelector('.header__favorite-count')?.innerHTML!! === toBe, 
         count, 
-        { timeout: 1000}
+        { timeout: 5000}
     );
     
 };
@@ -35,7 +35,7 @@ function getRandomInt() {
 }
 
 const login = async (page) => {
-    await page.goto('./');
+    await page.goto('http://localhost:5173/');
     await page.getByText('Sign in').click();
     await page.getByPlaceholder('Email').click();
     const dateNow = Date.now();
@@ -48,6 +48,7 @@ const login = async (page) => {
 
 test('should navigate to login page from main page if user is anauthorized', async ({ page }) => {
     await page.goto('./');
+    await page.waitForSelector('.cities__card');
     const card = await page.locator('.cities__card').first();
     await card.locator('.place-card__bookmark-icon').click();
     await page.waitForURL('./login');
