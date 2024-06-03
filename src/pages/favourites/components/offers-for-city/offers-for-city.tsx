@@ -1,29 +1,39 @@
 import { FC } from 'react';
-import FavouritesOffer from './favourites-offer';
+import { Link } from 'react-router-dom';
+import MemoFavouritesOffer from './favourites-offer-container';
 import { Offer } from '../../../../types/offer';
+import { MAIN_URL } from '../../../../const/links';
+import { useAppDispatch } from '../../../../state';
+import { changeCity } from '../../../../state/city/city-actions';
 
 export interface OffresForCityProps {
-    offers: Offer[] | null;
-    city: string;
+  offers: Offer[] | null;
+  city: string;
 }
 
 const OffersForCity: FC<OffresForCityProps> = ({ offers, city }) => {
+  const dispatch = useAppDispatch();
+
   if (!offers || offers.length === 0) {
-    return <p>No offers available for {city}.</p>;
+    return <div></div>;
   }
 
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <a className="locations__item-link" href="#">
+          <Link
+            className="locations__item-link"
+            to={MAIN_URL}
+            onClick={() => dispatch(changeCity(offers[0].city))}
+          >
             <span>{city}</span>
-          </a>
+          </Link>
         </div>
       </div>
       <div className="favorites__places">
         {offers.map((offer) => (
-          <FavouritesOffer offer={offer} key={offer.id} />
+          <MemoFavouritesOffer offer={offer} key={offer.id} />
         ))}
       </div>
     </li>

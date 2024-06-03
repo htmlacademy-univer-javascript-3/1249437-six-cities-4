@@ -1,14 +1,14 @@
 import { FC } from 'react';
-import OffersForCity from './components/offers-for-city/offers-for-city';
-import { Offer } from '../../types/offer';
-import Header from '../../components/header/header-сomponent';
 import { useSelector } from 'react-redux';
 import { selectOffersList } from '../../state/selectors';
+import Header from '../../components/header/header-сomponent';
+import MemoOffersForCity from './components/offers-for-city/memo-offers-for-city';
+import { Offer } from '../../types/offer';
+import { Link } from 'react-router-dom';
+import { MAIN_URL } from '../../const/links';
 
-export interface FavouritesPageProps {
-}
 
-export const FavoritesPage: FC<FavouritesPageProps> = () => {
+export const FavoritesPage: FC = () => {
   const offers = useSelector(selectOffersList)?.filter((offer) => offer.isFavorite);
   const offersByCities = (offers || []).reduce<Record<string, Offer[]>>((acc, offer) => {
     const key = offer.city.name;
@@ -29,7 +29,7 @@ export const FavoritesPage: FC<FavouritesPageProps> = () => {
                 <h1 className="favorites__title">Saved listing</h1>
                 <ul className="favorites__list">
                   {Object.keys(offersByCities).map((city) => (
-                    <OffersForCity city={city} offers={offersByCities[city] ?? null } key={city}/>
+                    <MemoOffersForCity city={city} offers={offersByCities[city] ?? null } key={city}/>
                   ))}
                 </ul>
               </section>
@@ -45,7 +45,7 @@ export const FavoritesPage: FC<FavouritesPageProps> = () => {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link className="footer__logo-link" to={MAIN_URL}>
           <img
             className="footer__logo"
             src="img/logo.svg"
@@ -53,7 +53,7 @@ export const FavoritesPage: FC<FavouritesPageProps> = () => {
             width="64"
             height="33"
           />
-        </a>
+        </Link>
       </footer>
     </div>
   );

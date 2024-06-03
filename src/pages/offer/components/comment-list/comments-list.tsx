@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Comment } from '../../../../types/comment';
-import CommentCard from './comment-card';
+import MemoCommentCard from './memo-comment-card';
 import { compareDates } from '../../../../utils/date-formatting';
 
 export interface CommentsListProps {
@@ -23,7 +23,7 @@ const CommentsList: FC<CommentsListProps> = ({ reviews }) => {
         {reviews
           .sort((a, b) => compareDates(a.date, b.date))
           .slice(0, Math.min(reviews.length, MAX_COMMENTS_NUMBER))
-          .map((it) => <CommentCard key={it.id} review={it} />)}
+          .map((it) => <MemoCommentCard key={it.id} review={it} />)}
       </ul>
     </>
   );
