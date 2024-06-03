@@ -1,16 +1,16 @@
 import { test, expect, Locator } from '@playwright/test';
 
 test('should render cards and right number of cards', async ({ page }) => {
-  await page.goto('./');
+  await page.goto('http://localhost:5173/');
   const text = await page.getByText('places to stay in').textContent();
-  await page.locator('.cities_card')
+  await page.locator('.cities__card')
   const numberOfCards = Number(text?.split(' ')[1])
 
   await expect(page.locator('.cities__card')).toHaveCount(numberOfCards);
 });
 
 test('should check active city tabs and places found text', async ({ page }) => {
-  await page.goto('./');
+  await page.goto('http://localhost:5173/');
 
   const isActive = async (locator: Locator) => {
     return locator.evaluate(el => el.classList.contains('tabs__item--active'));
@@ -41,20 +41,16 @@ test('should check active city tabs and places found text', async ({ page }) => 
 });
 
 test('should sort cards', async ({ page }) => {
-  await page.goto('./');
+  await page.goto('http://localhost:5173/');
+  
+  // Проверка сортировки по убыванию цены
   await page.getByText('Popular').click();
   await page.getByText('Price: high to low').click();
 
   const getPrices = async () => {
     const prices = await page.locator('.place-card__price-value').allTextContents();
-    const pricesTrimmed: Array<number> = [];
-  
-    for (let i = 0; i < prices.length; i++) {
-      let price = +(prices[i].replace(/\D/g, ''));
-      pricesTrimmed.push(price);
-    }
-    return pricesTrimmed;
-  }
+    return prices.map(price => parseFloat(price.replace(/[^0-9]/g, '')));
+  };
 
   await page.waitForSelector('.cities__card', {
     state: 'attached',
@@ -62,16 +58,20 @@ test('should sort cards', async ({ page }) => {
   });
 
   const highToLow = await getPrices();
-  
   for (let i = 0; i < highToLow.length - 1; i++) {
     expect(highToLow[i + 1]).toBeLessThanOrEqual(highToLow[i]);
   }
 
+  // Проверка сортировки по возрастанию цены
   await page.getByText('Price: high to low').click();
   await page.getByText('Price: low to high').click();
 
-  const lowToHigh = await getPrices();
+  await page.waitForSelector('.cities__card', {
+    state: 'attached',
+    timeout: 10000,
+  });
 
+  const lowToHigh = await getPrices();
   for (let i = 0; i < lowToHigh.length - 1; i++) {
     expect(lowToHigh[i + 1]).toBeGreaterThanOrEqual(lowToHigh[i]);
   }
