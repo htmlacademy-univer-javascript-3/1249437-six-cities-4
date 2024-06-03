@@ -7,7 +7,7 @@ import CitiesTabs from './components/cities-tab/cities-tab';
 import { CITIES_DATA } from '../../const/cities';
 import { useSelector } from 'react-redux';
 import { selectActiveOfferId, selectCurrentCity, selectOffersList } from '../../state/selectors';
-import SortingSelect from './components/sorting-select/sorting-select';
+import MemoSortingSelect from './components/sorting-select/memo-sorting-select';
 import { SortType } from './components/sorting-select/sort-types';
 import Spinner from '../../components/spinner/spinner-component';
 import Header from '../../components/header/header-сomponent';
@@ -65,7 +65,7 @@ const MainPage: FC = () => {
                     <section className="cities__places places">
                       <h2 className="visually-hidden">Places</h2>
                       <b className="places__found"> {offers.length ?? 0} places to stay in {city.name}</b>
-                      <SortingSelect onSortSelected={handleSortSelected}/>
+                      <MemoSortingSelect onSortSelected={handleSortSelected}/>
                       <OffersList offers={sortedOffers} />
                     </section>
                 }

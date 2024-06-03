@@ -6,8 +6,8 @@ import Spinner from '../../components/spinner/spinner-component';
 import NotFoundPage from '../not-found/not-found-page';
 import FavouriteButton from '../../components/favourite-button/favourite-button';
 import CommentForm from './components/comment-form/comment-form';
-import CommentsList from './components/comment-list/comments-list';
-import NearbyOffersList from './components/nearby-offers-list/nearby-offers-list';
+import MemoCommentsList from './components/comment-list/memo-comments-list';
+import MemoNearbyOffersList from './components/nearby-offers-list/memo-nearby-offers-list';
 import { Map } from '../../components/map/map-component';
 import { axiosInstance } from '../../api';
 import { GET_COMMENTS, GET_OFFERS } from '../../const/api-const';
@@ -125,7 +125,7 @@ const OfferPage: FC = () => {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <CommentsList reviews={memoizedComments} />
+                <MemoCommentsList reviews={memoizedComments} />
                 {authStatus === AuthStatus.Authorized ?
                   <CommentForm offerId={memoizedOfferInfo.id}
                     handleFormSend={() => {
@@ -148,7 +148,7 @@ const OfferPage: FC = () => {
         {memoizedNearbyOffers.length > 0 && (
           <div className="container">
             <section className="near-places places">
-              <NearbyOffersList offers={memoizedNearbyOffers} />
+              <MemoNearbyOffersList offers={memoizedNearbyOffers} />
             </section>
           </div>
         )}

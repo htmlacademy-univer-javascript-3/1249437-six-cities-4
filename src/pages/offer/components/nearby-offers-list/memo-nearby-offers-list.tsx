@@ -1,6 +1,6 @@
 import React from 'react';
 import NearbyOffersList, { NearbyOffersListProps } from './nearby-offers-list';
 
-const memoNearbyOffersList = React.memo<NearbyOffersListProps>(NearbyOffersList);
+const MemoNearbyOffersList = React.memo<NearbyOffersListProps>(NearbyOffersList);
 
-export default memoNearbyOffersList;
+export default MemoNearbyOffersList;
