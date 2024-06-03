@@ -2,8 +2,9 @@ import {useRef, useEffect, FC} from 'react';
 import {Icon, Marker, layerGroup} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map';
-import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const/icons';
 import { City } from '../../types/offer';
+import pin from '../../../markup/img/pin.svg';
+import activePin from '../../../markup/img/pin-active.svg';
 
 export interface MapPoint {
     id: string;
@@ -19,13 +20,13 @@ export interface MapProps {
 
 
 const defaultCustomIcon = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
+  iconUrl: pin,
   iconSize: [40, 40],
   iconAnchor: [20, 40]
 });
 
 const currentCustomIcon = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
+  iconUrl: activePin,
   iconSize: [40, 40],
   iconAnchor: [20, 40]
 });
