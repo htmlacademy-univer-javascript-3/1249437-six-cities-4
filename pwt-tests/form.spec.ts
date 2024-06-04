@@ -40,10 +40,6 @@ test('should send form by authorized user', async ({ page }) => {
     I stayed in room number 407 and it was fantastic!
     The room was spacious and modern with a comfortable king-sized bed and a large flat-screen TV.
     The view from the window of the city skyline was breathtaking.
-    The bathroom was spotless and well-equipped with all the necessary amenities.
-    The staff provided excellent service, always polite and helpful.
-    The breakfast buffet was varied and delicious.
-    The hotel is conveniently located near major attractions and public transport.
     Highly recommend this place for anyone visiting the city!
     `
     await page.locator('form svg').nth(2).click();
