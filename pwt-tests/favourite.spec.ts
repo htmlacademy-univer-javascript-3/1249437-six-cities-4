@@ -63,11 +63,9 @@ test('should add and remove favourite from main page if user is authorized', asy
     const button = await card.locator('.place-card__bookmark-icon');
     const name = await card.locator('.place-card__name').locator('a').innerText();
 
-    //check add
     await button.click();
     await checkIfFavouriteWasAdded(page, favoutiteCount + 1, name);
 
-    // check remove
     await button.click();
     await checkIfFavouriteWasRemoved(page, favoutiteCount);
 });
@@ -91,7 +89,6 @@ test('should add and remove favourite from offer page if user is authorized', as
     const card = await page.locator('.cities__card').first();
     const name = await card.locator('.place-card__name').locator('a').innerText();
 
-    //check add
     await card.click();
     await page.waitForSelector('.offer__wrapper');
     const offerWrapper = page.locator('.offer__wrapper');
@@ -99,7 +96,6 @@ test('should add and remove favourite from offer page if user is authorized', as
 
     await checkIfFavouriteWasAdded(page, favoutiteCount + 1, name);
 
-    // check remove
     await card.click();
     await page.waitForSelector('.offer__wrapper');
     await offerWrapper.locator('.place-card__bookmark-icon').click();
@@ -125,7 +121,6 @@ test('should add and remove favourite from offer page nearby offers if user is a
     const favoutiteCount = await getFavouriteCount(page);
     const card = await page.locator('.cities__card').first()
 
-    //check add
     await card.click();
     await page.waitForSelector('.near-places__card');
     const nearPlaces = page.locator('.near-places__card').first();
@@ -134,7 +129,6 @@ test('should add and remove favourite from offer page nearby offers if user is a
 
     await checkIfFavouriteWasAdded(page, favoutiteCount + 1, name);
     
-    // check remove
     await card.click();
     await page.waitForSelector('.near-places__card');
     await nearPlaces.locator('.place-card__bookmark-icon').click();
@@ -155,7 +149,6 @@ test('should remove favourite from favourite page', async ({ page }) => {
     const favoutiteCount = await getFavouriteCount(page);
     const card = await page.locator('.cities__card').first();
 
-    //check add
     await card.click();
     await page.waitForSelector('.near-places__card');
     const nearPlaces = page.locator('.near-places__card').first();
@@ -164,10 +157,9 @@ test('should remove favourite from favourite page', async ({ page }) => {
 
     await checkIfFavouriteWasAdded(page, favoutiteCount + 1, name);
     
-    //check remove 
     await page.locator('.header__favorite-count').click();
     const favouriteCard = await page.locator('.favorites__card').first();
     await favouriteCard.locator('.place-card__bookmark-icon').click();
     await checkIfFavouriteWasRemoved(page, favoutiteCount);
-
+    
 });

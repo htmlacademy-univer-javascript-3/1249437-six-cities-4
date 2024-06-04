@@ -43,7 +43,6 @@ test('should check active city tabs and places found text', async ({ page }) => 
 test('should sort cards', async ({ page }) => {
   await page.goto('http://localhost:5173/');
   
-  // Проверка сортировки по убыванию цены
   await page.getByText('Popular').click();
   await page.getByText('Price: high to low').click();
 
@@ -62,7 +61,6 @@ test('should sort cards', async ({ page }) => {
     expect(highToLow[i + 1]).toBeLessThanOrEqual(highToLow[i]);
   }
 
-  // Проверка сортировки по возрастанию цены
   await page.getByText('Price: high to low').click();
   await page.getByText('Price: low to high').click();
 
