@@ -2,13 +2,14 @@ import { createReducer } from '@reduxjs/toolkit';
 import { AuthStatus } from '../../types/auth-status';
 import { User } from '../../types/user';
 import { changeAuthStatus, changeUser } from './user-actions';
+
 interface UserState {
   authStatus: AuthStatus;
   user: User | undefined;
 }
 
 const initialUserState: UserState = {
-  authStatus: AuthStatus.NotAuthorized,
+  authStatus: AuthStatus.Unknown,
   user: undefined,
 };
 
