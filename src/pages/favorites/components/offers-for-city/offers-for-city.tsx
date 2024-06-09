@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import MemoFavouritesOffer from './favourites-offer-container';
+import MemoFavoritesOffer from './favorites-offer-container';
 import { Offer } from '../../../../types/offer';
 import { MAIN_URL } from '../../../../const/links';
 import { useAppDispatch } from '../../../../state';
@@ -33,7 +33,7 @@ const OffersForCity: FC<OffresForCityProps> = ({ offers, city }) => {
       </div>
       <div className="favorites__places">
         {offers.map((offer) => (
-          <MemoFavouritesOffer offer={offer} key={offer.id} />
+          <MemoFavoritesOffer offer={offer} key={offer.id} />
         ))}
       </div>
     </li>

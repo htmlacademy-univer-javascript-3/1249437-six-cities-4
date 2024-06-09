@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FAVOURITES_URL, LOGIN_URL, MAIN_URL } from '../../const/links';
+import { FAVORITES_URL, LOGIN_URL, MAIN_URL } from '../../const/links';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser, selectOffersList } from '../../state/selectors';
 import { useAppDispatch } from '../../state';
@@ -14,7 +14,7 @@ export interface HeaderProps {
 const Header: FC<HeaderProps> = ({showSignButton}) => {
   const toShow = showSignButton !== undefined ? showSignButton : true;
   const user = useSelector(selectCurrentUser);
-  const favouriteCount = useSelector(selectOffersList)?.filter((offer) => offer.isFavorite).length;
+  const favoriteCount = useSelector(selectOffersList)?.filter((offer) => offer.isFavorite).length;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const logOutIfPresent = () => {
@@ -38,11 +38,11 @@ const Header: FC<HeaderProps> = ({showSignButton}) => {
             <ul className="header__nav-list">
               {user ?
                 <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to={FAVOURITES_URL}>
+                  <Link className="header__nav-link header__nav-link--profile" to={FAVORITES_URL}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">{user.name}</span>
-                    <span className="header__favorite-count">{favouriteCount}</span>
+                    <span className="header__favorite-count">{favoriteCount}</span>
                   </Link>
                 </li>
                 : <div></div>}
