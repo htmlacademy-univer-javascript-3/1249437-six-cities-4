@@ -7,7 +7,6 @@ import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import { MAIN_URL } from '../../const/links';
 
-
 export const FavoritesPage: FC = () => {
   const offers = useSelector(selectOffersList)?.filter((offer) => offer.isFavorite);
   const offersByCities = (offers || []).reduce<Record<string, Offer[]>>((acc, offer) => {
@@ -18,10 +17,13 @@ export const FavoritesPage: FC = () => {
     acc[key].push(offer);
     return acc;
   }, {});
+
+  const isEmpty = !offers || offers.length === 0;
+
   return (
-    <div className="page">
+    <div className={`page ${isEmpty ? 'page--favorites-empty' : ''}`}>
       <Header />
-      <main className="page__main page__main--favorites">
+      <main className={`page__main page__main--favorites ${isEmpty ? 'page__main--favorites-empty' : ''}`}>
         <div className="page__favorites-container container">
           {
             offers && offers.length ?

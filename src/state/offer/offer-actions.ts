@@ -1,8 +1,8 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { Offer } from '../../types/offer';
 import { ThunkConfig } from '..';
-import { CHANGE_FAVOURITE_STATUS, GET_OFFERS } from '../../const/api-const';
-import { FavouriteStatus } from '../../types/favourite-status';
+import { CHANGE_FAVORITE_STATUS, GET_OFFERS } from '../../const/api-const';
+import { FavoriteStatus } from '../../types/favorite-status';
 
 export const changeOffersList = createAction<Offer[] | undefined>('offers/changeOffersList');
 
@@ -16,11 +16,11 @@ export const fetchOffersList = createAsyncThunk<void, undefined, ThunkConfig>('o
   dispatch(changeOffersList(response.data));
 });
 
-export const changeFavouriteStatus = createAsyncThunk<void, { offerId: string; newStatus: FavouriteStatus }, ThunkConfig>('offer/changeFavouriteStatus', async (
+export const changeFavoriteStatus = createAsyncThunk<void, { offerId: string; newStatus: FavoriteStatus }, ThunkConfig>('offer/changeFavoriteStatus', async (
   { offerId, newStatus },
   { extra, dispatch, getState }
 ) => {
-  const response = await extra.post<Offer>(`${CHANGE_FAVOURITE_STATUS}/${offerId}/${newStatus}`);
+  const response = await extra.post<Offer>(`${CHANGE_FAVORITE_STATUS}/${offerId}/${newStatus}`);
   if(response.status === 200 || response.status === 201) {
     const offers = getState().offerState.offersList;
     const newOffers = (offers ? offers : []).map((offer) => {

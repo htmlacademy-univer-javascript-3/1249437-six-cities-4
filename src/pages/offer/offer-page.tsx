@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Header from '../../components/header/header-сomponent';
 import Spinner from '../../components/spinner/spinner-component';
 import NotFoundPage from '../not-found/not-found-page';
-import FavouriteButton from '../../components/favourite-button/favourite-button';
+import FavoriteButton from '../../components/favorite-button/favorite-button';
 import CommentForm from './components/comment-form/comment-form';
 import MemoCommentsList from './components/comment-list/memo-comments-list';
 import MemoNearbyOffersList from './components/nearby-offers-list/memo-nearby-offers-list';
@@ -17,7 +17,12 @@ import { AuthStatus } from '../../types/auth-status';
 import { FullOfferInfo } from '../../types/full-offer-info';
 import { Offer } from '../../types/offer';
 import { Comment } from '../../types/comment';
+import ErrorMessage from './components/error-message/error-message';
 
+const RATING_MULTIPLIER = 20;
+const HOST_AVATAR_SIZE = { width: 74, height: 74 };
+const FAVORITE_BUTTON_SIZE = { width: 31, height: 33 };
+const MAP_STYLE = { width: '800px', marginLeft: 'auto', marginRight: 'auto' };
 const MAX_PREVIEW_IMAGES = 6;
 const MAX_NEARBY_OFFERS = 3;
 const PRO_HOST_CLASS = 'offer__avatar-wrapper--pro';
@@ -32,6 +37,8 @@ const OfferPage: FC = () => {
   const [nearbyOffers, setNearbyOffers] = useState<Offer[]>([]);
   const [notFound, setNotFound] = useState<boolean>(false);
 
+  const [error, setError] = useState<string | null>(null);
+
   const fetchData = useCallback(async () => {
     try {
       const [offerResponse, commentsResponse, nearbyResponse] = await Promise.all([
@@ -43,8 +50,10 @@ const OfferPage: FC = () => {
       setOfferInfo(offerResponse.data);
       setComments(commentsResponse.data);
       setNearbyOffers(nearbyResponse.data.slice(0, MAX_NEARBY_OFFERS));
+      setError(null);
     } catch (err) {
       setNotFound(true);
+      setError('Unable to fetch data from the server. Please try again later.');
     }
   }, [id]);
 
@@ -58,6 +67,10 @@ const OfferPage: FC = () => {
 
   if (notFound) {
     return <NotFoundPage />;
+  }
+
+  if (error) {
+    return <ErrorMessage message={error} />;
   }
 
   if (!memoizedOfferInfo) {
@@ -87,11 +100,11 @@ const OfferPage: FC = () => {
               )}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{memoizedOfferInfo.title}</h1>
-                <FavouriteButton id={memoizedOfferInfo.id} isFavourite={memoizedOfferInfo.isFavorite} stylePrefix="offer" width={31} height={33} />
+                <FavoriteButton id={memoizedOfferInfo.id} isFavorite={memoizedOfferInfo.isFavorite} stylePrefix="offer" width={FAVORITE_BUTTON_SIZE.width} height={FAVORITE_BUTTON_SIZE.height} />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: `${Math.round(memoizedOfferInfo.rating) * 20}%` }}></span>
+                  <span style={{ width: `${Math.round(memoizedOfferInfo.rating) * RATING_MULTIPLIER}%` }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{memoizedOfferInfo.rating}</span>
@@ -115,7 +128,7 @@ const OfferPage: FC = () => {
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
                   <div className={`offer__avatar-wrapper ${memoizedOfferInfo.host.isPro ? PRO_HOST_CLASS : ''} user__avatar-wrapper`}>
-                    <img className="offer__avatar user__avatar" src={memoizedOfferInfo.host.avatarUrl} width="74" height="74" alt="Host avatar" />
+                    <img className="offer__avatar user__avatar" src={memoizedOfferInfo.host.avatarUrl} width={HOST_AVATAR_SIZE.width} height={HOST_AVATAR_SIZE.height} alt="Host avatar" />
                   </div>
                   <span className="offer__user-name">{memoizedOfferInfo.host.name}</span>
                   <span className="offer__user-status">{memoizedOfferInfo.host.isPro ? 'Pro' : ''}</span>
@@ -138,7 +151,7 @@ const OfferPage: FC = () => {
             </div>
           </div>
           {memoizedNearbyOffers.length > 0 ? (
-            <section className="offer__map map" style={{ width: '800px', marginLeft: 'auto', marginRight: 'auto' }}>
+            <section className="offer__map map" style={MAP_STYLE}>
               <Map city={memoizedOfferInfo.city} points={[...memoizedNearbyOffers, memoizedOfferInfo].map(offerToMapPoint)} selectedPointId={memoizedOfferInfo.id} />
             </section>
           ) : (
@@ -147,9 +160,7 @@ const OfferPage: FC = () => {
         </section>
         {memoizedNearbyOffers.length > 0 && (
           <div className="container">
-            <section className="near-places places">
-              <MemoNearbyOffersList offers={memoizedNearbyOffers} />
-            </section>
+            <MemoNearbyOffersList offers={memoizedNearbyOffers} />
           </div>
         )}
       </main>
